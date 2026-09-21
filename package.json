@@ -1,0 +1,56 @@
+{
+  "name": "expo-xcasset-plugin",
+  "version": "0.1.0",
+  "description": "Expo config plugin that turns SVG files into iOS asset catalog (xcassets) vector images at prebuild",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build",
+    "app.plugin.js"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "node -e \"require('fs').rmSync('build',{recursive:true,force:true})\"",
+    "test": "npm run build && node --test test/",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "expo",
+    "expo-plugin",
+    "config-plugin",
+    "react-native",
+    "ios",
+    "xcassets",
+    "asset-catalog",
+    "svg",
+    "pdf"
+  ],
+  "author": "Mustafa Alsihati",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MustafaAlsihati/expo-xcasset-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MustafaAlsihati/expo-xcasset-plugin/issues"
+  },
+  "homepage": "https://github.com/MustafaAlsihati/expo-xcasset-plugin#readme",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pdfkit": "^0.20.2",
+    "svg-to-pdfkit": "^0.1.8"
+  },
+  "peerDependencies": {
+    "expo": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/pdfkit": "^0.17.6",
+    "@types/svg-to-pdfkit": "^0.1.4",
+    "expo": "~57.0.20",
+    "typescript": "~6.0.3"
+  }
+}
