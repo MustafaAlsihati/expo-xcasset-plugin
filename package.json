@@ -11,9 +11,16 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "clean": "node -e \"require('fs').rmSync('build',{recursive:true,force:true})\"",
-    "test": "npm run build && node --test",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test"
+    "test": "yarn build && node --test",
+    "prepare": "yarn build",
+    "prepublishOnly": "yarn test",
+    "release": "yarn build && npm whoami && yarn test && release-it",
+    "release:beta": "yarn build && npm whoami && yarn test && release-it --preRelease=beta"
+  },
+  "packageManager": "yarn@4.9.1",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "keywords": [
     "expo",
@@ -51,6 +58,7 @@
     "@types/pdfkit": "^0.17.6",
     "@types/svg-to-pdfkit": "^0.1.4",
     "expo": "~57.0.20",
+    "release-it": "^20.2.1",
     "typescript": "~6.0.3"
   }
 }

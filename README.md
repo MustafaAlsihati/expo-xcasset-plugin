@@ -7,7 +7,8 @@ iOS loads named images from the asset catalog (`UIImage(named:)`), and vector as
 ## Install
 
 ```sh
-npm install expo-xcasset-plugin
+yarn add expo-xcasset-plugin
+# or: npm install expo-xcasset-plugin
 ```
 
 ## Usage
@@ -71,11 +72,36 @@ Running prebuild again replaces the image sets, and the output is identical betw
 ## Development
 
 ```sh
-npm install
-npm test     # builds, then runs the tests with Node's test runner
+yarn install
+yarn test     # builds, then runs the tests with Node's test runner
 ```
 
 The tests run the plugin through Expo's own mod compiler against a generated iOS project, the same way `expo prebuild` invokes it.
+
+## Releasing
+
+Releases are cut with [release-it](https://github.com/release-it/release-it), set up the same way as the `taketkt` package: no config file, just its defaults, driven by two npm scripts. Run them from a clean branch that is in sync with GitHub:
+
+```sh
+yarn release             # asks which version to release
+yarn release 1.0.0       # or give the version
+yarn release:beta        # a prerelease (x.y.z-beta.n), published under the `beta` tag
+yarn release --dry-run   # show what would happen, change nothing
+```
+
+Both build first, then check that you are logged in to npm (`npm whoami`) and run the tests. Then release-it bumps the version in `package.json`, publishes to npm, commits `Release X.Y.Z`, tags `X.Y.Z` (no `v` prefix) and pushes both. If one of those first steps fails (a build error, not logged in, failing tests, an unclean tree), it stops before changing anything.
+
+release-it publishes with npm, so log in with `npm login` (yarn does not read that login); publishing asks for your 2FA code. It does not create a GitHub release. To add one, run `gh release create X.Y.Z --generate-notes`.
+
+### If a release stops part-way
+
+The npm publish is the first step that cannot be undone, and nothing is committed, tagged or pushed before it succeeds. So if the release fails before that (a wrong 2FA code, a network error), the only thing left behind is the staged version bump. Discard it and run the release again:
+
+```sh
+git reset --hard
+```
+
+If it fails after publishing (check with `npm view expo-xcasset-plugin version`), do not release that version again. Make sure the release commit and the `X.Y.Z` tag exist, and push them with `git push --follow-tags`.
 
 ## License
 

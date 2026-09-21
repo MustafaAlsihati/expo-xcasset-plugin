@@ -1,4 +1,5 @@
 node_modules/
+.yarn/
 build/
 *.tgz
 .DS_Store
