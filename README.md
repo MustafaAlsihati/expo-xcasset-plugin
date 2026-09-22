@@ -17,17 +17,9 @@ Add the plugin to `app.json` with an array of `{ [assetName]: svgPath }` entries
 
 ```json
 {
-  "expo": {
-    "plugins": [
-      [
-        "expo-xcasset-plugin",
-        [
-          { "tab-home": "./assets/icons/home.svg" },
-          { "tab-cart": "./assets/icons/cart.svg" }
-        ]
-      ]
-    ]
-  }
+	"expo": {
+		"plugins": [["expo-xcasset-plugin", [{ "tab-home": "./assets/icons/home.svg" }, { "tab-cart": "./assets/icons/cart.svg" }]]]
+	}
 }
 ```
 
@@ -37,7 +29,7 @@ Then generate the native project (or build with EAS) and use the asset by name. 
 import { NativeTabs } from 'expo-router/unstable-native-tabs';
 
 <NativeTabs.Trigger name="cart">
-  <NativeTabs.Trigger.Icon xcasset="tab-cart" />
+	<NativeTabs.Trigger.Icon xcasset="tab-cart" />
 </NativeTabs.Trigger>;
 ```
 
@@ -45,10 +37,10 @@ import { NativeTabs } from 'expo-router/unstable-native-tabs';
 
 The plugin props are a list of `{ [assetName]: svgPath }` objects. An object may hold several entries, and a single object (`{ "tab-home": "./home.svg" }`) is accepted too.
 
-| Part        | Rule                                                                                              |
-| ----------- | ------------------------------------------------------------------------------------------------- |
-| `assetName` | Letters, numbers, `-` and `_`, starting with a letter or number. Must be unique.                  |
-| `svgPath`   | An `.svg` file, relative to the directory that holds `app.json`.                                  |
+| Part        | Rule                                                                             |
+| ----------- | -------------------------------------------------------------------------------- |
+| `assetName` | Letters, numbers, `-` and `_`, starting with a letter or number. Must be unique. |
+| `svgPath`   | An `.svg` file, relative to the directory that holds `app.json`.                 |
 
 Invalid props fail as soon as the config is read, and a missing or unreadable SVG fails the prebuild with the asset name and the resolved path.
 
@@ -80,7 +72,7 @@ The tests run the plugin through Expo's own mod compiler against a generated iOS
 
 ## Releasing
 
-Releases are cut with [release-it](https://github.com/release-it/release-it), set up the same way as the `taketkt` package: no config file, just its defaults, driven by two npm scripts. Run them from a clean branch that is in sync with GitHub:
+Releases are cut with [release-it](https://github.com/release-it/release-it), no config file, just its defaults, driven by two npm scripts. Run them from a clean branch that is in sync with GitHub:
 
 ```sh
 yarn release             # asks which version to release
